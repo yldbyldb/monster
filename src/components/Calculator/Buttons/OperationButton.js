@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -10,11 +10,14 @@ const Button = styled.button`
     font-size: 25px;
     color: white;
     margin: 0 auto;
+    &:hover {
+        cursor:pointer;
+    };
 `;
 
 const OperationButton = ({ symbol }) => {
     return (
-        <Button>
+        <Button onClick={() => console.log('hdhd')}>
             {symbol}
         </Button>
         );

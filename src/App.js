@@ -1,9 +1,12 @@
 import CalculatorAndHistory from "./components";
+import CalculatorProvider from './commons/calculatorProvider'
 
 function App() {
   return (
     <div className="App">
-        <CalculatorAndHistory />
+        <CalculatorProvider>
+            <CalculatorAndHistory />
+        </CalculatorProvider>
     </div>
   );
 }

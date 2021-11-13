@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
+
+import { CalculatorContext } from '../../../commons/calculatorProvider'
 
 const Button = styled.button`
     width: 60px;
@@ -10,11 +12,17 @@ const Button = styled.button`
     font-size: 25px;
     color: white;
     margin: 0 auto;
+    &:hover {
+        cursor:pointer;
+    };
 `;
 
 const NumberButton = ({ num }) => {
+
+    const{ handleDisplayNum } = useContext(CalculatorContext)
+
     return (
-        <Button>
+        <Button onClick={() => handleDisplayNum(num)}>
             {num}
         </Button>
         );

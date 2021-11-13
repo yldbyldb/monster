@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 
 import NumberButton from './Buttons/NumberButton';
@@ -8,6 +8,7 @@ import PercentageButton from './Buttons/PercentageButton';
 import NegativeButton from './Buttons/NegativeButton';
 import ZeroButton from './Buttons/ZeroButton';
 import ScientificButton from './Buttons/ScientificButton';
+import { CalculatorContext } from '../../commons/calculatorProvider'
 
 const CalculatorStyles = styled.div`
     background: black;
@@ -47,10 +48,13 @@ const CalculatorStyles = styled.div`
 `
 
 const Calculator = () => {
+
+    const { num } = useContext(CalculatorContext)
+
     return (
         <CalculatorStyles>
             <div className="displayArea">
-                22
+                {num}
             </div>
             <div className="buttonArea">
                 <div className="scientificButton">
