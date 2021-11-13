@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
+
+import { CalculatorContext } from '../../../commons/calculatorProvider'
+
 
 const Button = styled.button`
     width: 100%;
@@ -16,8 +19,11 @@ const Button = styled.button`
 `;
 
 const ZeroButton = ({ num }) => {
+
+    const { handleDisplayNum } = useContext(CalculatorContext);
+
     return (
-        <Button onClick={() => console.log('hdhd')}>
+        <Button onClick={() => handleDisplayNum(num)}>
             {num}
         </Button>
         );

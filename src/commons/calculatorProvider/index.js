@@ -6,8 +6,12 @@ const CalculatorProvider = (props) => {
     
     //display area number state
     const [num, setNum] = useState('');
+
     //operation symbol state
     const [symbol, setSymbol] = useState('');
+
+    //to save the previous number state
+    const [preNum, setPreNum] = useState('')
     
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton) => {
@@ -17,8 +21,10 @@ const CalculatorProvider = (props) => {
 
     //clear the display area
     const handleClearNum = useCallback(() => {
-        setNum('')
-    }, [setNum]);
+        setNum('');
+        setSymbol('');
+        setPreNum('');
+    }, [setNum, setSymbol, setPreNum]);
 
     //percentage the number which is input
     const handlePercentNum = useCallback(() => {
@@ -36,18 +42,46 @@ const CalculatorProvider = (props) => {
 
     //get the symbol when clicking
     const handleGetSymbol = (symbolInButton) => {
-        num && setSymbol(symbolInButton)
-        console.log(symbol);
+        if(num) {
+            setSymbol(symbolInButton)
+            setPreNum(num);//save the previous num that clicked
+            setNum('');//clear the display area
+        }
+    };
+
+    //get the result when clicking the '='
+    const handleClickEqualButton = () => {
+        if (num && preNum) {
+            switch(symbol) {
+                case '/': 
+                    setPreNum((preNum*1000)/(num*1000));
+                    break;
+                case '*': 
+                    setPreNum(((preNum*1000)*(num*1000))/1000000);
+                    break;
+                case '-': 
+                    setPreNum(((preNum*1000)-(num*1000))/1000);
+                    break;
+                case '+': 
+                    setPreNum(((preNum*1000)+(num*1000))/1000);
+                    break;
+                default: 
+                    break;
+            }
+            setNum('')
+        }
     }
 
     return (
         <CalculatorContext.Provider value={{
             handleDisplayNum, 
             num, 
+            preNum,
             handleClearNum,
             handlePercentNum,
             handleToggleNegative,
             handleGetSymbol,
+            handleClickEqualButton,
         }}>
             {props.children}
         </CalculatorContext.Provider>

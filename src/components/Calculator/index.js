@@ -8,6 +8,7 @@ import PercentageButton from './Buttons/PercentageButton';
 import NegativeButton from './Buttons/NegativeButton';
 import ZeroButton from './Buttons/ZeroButton';
 import ScientificButton from './Buttons/ScientificButton';
+import EqualButton from './Buttons/EqualButton';
 import { CalculatorContext } from '../../commons/calculatorProvider'
 
 const CalculatorStyles = styled.div`
@@ -49,12 +50,12 @@ const CalculatorStyles = styled.div`
 
 const Calculator = () => {
 
-    const { num } = useContext(CalculatorContext)
+    const { num, preNum } = useContext(CalculatorContext)
 
     return (
         <CalculatorStyles>
             <div className="displayArea">
-                {num}
+                { num || preNum } 
             </div>
             <div className="buttonArea">
                 <div className="scientificButton">
@@ -110,7 +111,7 @@ const Calculator = () => {
                         <ZeroButton num={0}/>
                     </div>
                     <NumberButton num='.'/>
-                    <OperationButton symbol='='/>
+                    <EqualButton />
                 </div>
             </div>
         </CalculatorStyles>
