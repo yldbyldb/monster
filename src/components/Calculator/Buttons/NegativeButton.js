@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
+
+import { CalculatorContext } from '../../../commons/calculatorProvider';
 
 const Button = styled.button`
     width: 60px;
@@ -16,8 +18,11 @@ const Button = styled.button`
 `;
 
 const NegativeButton = () => {
+
+    const { handleToggleNegative } = useContext(CalculatorContext)
+
     return (
-        <Button onClick={() => console.log('hdhd')}>+/-</Button>
+        <Button onClick={() => handleToggleNegative()}>+/-</Button>
         );
 }
 

@@ -19,7 +19,7 @@ const Button = styled.button`
 
 const NumberButton = ({ num }) => {
 
-    const{ handleDisplayNum } = useContext(CalculatorContext)
+    const { handleDisplayNum } = useContext(CalculatorContext)
 
     return (
         <Button onClick={() => handleDisplayNum(num)}>
