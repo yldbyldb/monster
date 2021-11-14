@@ -1,108 +1,77 @@
-import React, { createContext, useState, useCallback } from 'react'
+import React, { createContext, useState, useCallback, useEffect } from 'react'
 
 export const CalculatorContext = createContext();
 
 const CalculatorProvider = (props) => {
     
-    //display area number state
-    const [num, setNum] = useState('');
+    //display the process state
+    const [proc, setProc] = useState('');
 
-    //operation symbol state
-    const [symbol, setSymbol] = useState('');
-
-    //to save the previous number state
-    const [preNum, setPreNum] = useState('')
+    //display result state
+    const [result, setResult] = useState('');
 
     //to save the history state
     const [history, setHistory] = useState([]);
 
-    // //to save the process temporarily for history
-    // const [proc, setProc] = useState('');
-    // //to save the result temporarily for history
-    // const [result, setResult] = useState('');
-    
-
-    // //save the result for history list
-    // const [resInProvider, setResInProvider] = useState('')
-
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton) => {
-        setNum(num + numInButton)
-        console.log(num);
-    }, [num, setNum]);
-
-    //clear the display area
-    const handleClearNum = useCallback(() => {
-        setNum('');
-        setSymbol('');
-        setPreNum('');
-    }, [setNum, setSymbol, setPreNum]);
+        setProc(proc + numInButton)
+    }, [proc, setProc]);
 
     //percentage the number which is input
     const handlePercentNum = useCallback(() => {
-        setNum((num*1000)/100000) //to deal with 0.1 + 0.2 ≠ 0.3 issue
-    }, [num, setNum]);
-
+        setProc((proc*1000)/100000) //to deal with 0.1 + 0.2 ≠ 0.3 issue
+    }, [proc, setProc]);
+    
     //toggle to negative/positive
     const handleToggleNegative = useCallback(() => {
-        if (num && num > 0) {
-            setNum('-' + num)
+        if (proc && proc > 0) {
+            setProc('-' + proc)
         } else {
-            setNum(num.slice(1))
+            setProc(proc.slice(1))
         }
-    }, [num, setNum]);
+    }, [proc, setProc]);
+
+    //clear the display area
+    const handleClearNum = useCallback(() => {
+        setProc('');
+        setResult('')
+    }, [setProc]);
+
 
     //get the symbol when clicking
     const handleGetSymbol = useCallback((symbolInButton) => {
-        if(num) {
-            setSymbol(symbolInButton)//save the operation symbol
-            setPreNum(num);//save the previous num that clicked
-            setNum('');//clear the display area
+        if(proc) {
+            setProc(proc + symbolInButton)
         }
-    }, [num]);
+    }, [proc]);
 
-    //get the result when clicking the '='
+    //get the result and push new object in history array when clicking the '='
     const handleClickEqualButton = () => {
-        if (num && preNum) {
-            let res
-            switch(symbol) {
-                case '/': 
-                    res = (preNum*1000)/(num*1000)
-                    setPreNum(res);
-                    setSymbol('')
-                    setHistory([...history, {process: '', result: res}])
-                    break;
-                case '*': 
-                    res = ((preNum*1000)*(num*1000))/1000000
-                    setPreNum(res);
-                    setSymbol('')
-                    setHistory([...history, {process: '', result: res}])
-                    break;
-                case '-': 
-                    res = ((preNum*1000)-(num*1000))/1000
-                    setPreNum(res);
-                    setSymbol('')
-                    setHistory([...history, {process: '', result: res}])
-                    break;
-                case '+':
-                    res = ((preNum*1000)+(num*1000))/1000
-                    setPreNum(res);
-                    setSymbol('')
-                    setHistory([...history, {process: '', result: res}])
-                    break;
-                default: 
-                    break;
-            }
-            setNum('')
+        if (proc) {
+            let result = Math.round(eval(proc)*100000)/100000;
+            setHistory([...history, {process: proc + '=', result: result, id: new Date()}])
+            setProc('')
+            setResult(result)
         }
     }
+
+    useEffect(() => {
+        const historyListFromLocalStorage = JSON.parse(localStorage.getItem('historyList') || '[]');
+        setHistory(historyListFromLocalStorage)
+    }, [setHistory])
+
+    //save the history into localStorage
+    useEffect(() => {
+        console.log(history);
+        localStorage.setItem('historyList', JSON.stringify(history))
+    }, [history])
 
     return (
         <CalculatorContext.Provider value={{
             handleDisplayNum, 
-            num, 
-            preNum,
-            symbol,
+            proc, 
+            result,
             history,
             handleClearNum,
             handlePercentNum,

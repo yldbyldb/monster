@@ -10,65 +10,31 @@ const HistoryStyles = styled.div`
     padding: 10px
 `
 
-
-
-
 const History = () => {
-
-    //init history state
-    // const initHistoryList = {
-    //     historyList: []
-    // };
-    // //to save the history state
-    // const [history, setHistory] = useState(initHistoryList);
-
-    // //to save the process temporarily for history
-    // const [proc, setProc] = useState('');
-    // //to save the result temporarily for history
-    // const [result, setResult] = useState('');
         
-    const { preNum, symbol, num, history } = useContext(CalculatorContext);
+    const { history } = useContext(CalculatorContext);
 
-
-    // const handleDisplayProcess = () => {
-    //     setProc(preNum + symbol + num);
-    //     console.log('proc:'+proc);
-    //     return proc
-    // }
-
-    // const handleDisplayResult = () => {
-    //     setResult(preNum)
-    //     console.log('result:'+resInProvider);
-
-    //     return resInProvider;
-    // }
-
-    // const pushInList = () => {
-    //     handleDisplayProcess();
-    //     handleDisplayResult()
-    //     setHistory([...history.historyList, {process: proc, result: preNum}])
-    //     console.log(history);
-    // }
+    //get the history list for local storage
+    // const [historyList, setHistoryList] = useState('')
 
     // useEffect(() => {
-    //     const historyList = JSON.parse(localStorage.getItem('historyList' || '[]'))
+    //     const historyListFromLocalStorage = JSON.parse(localStorage.getItem('historyList') || '[]');
+    //     setHistoryList(historyListFromLocalStorage);
     // }, [])
+
+    // save the history into localStorage
     // useEffect(() => {
-    //     localStorage.setItem('historyList', JSON.stringify())
-    // })
-
-    // useEffect(() => {
-    //     // pushInList()
-    //     handleDisplayProcess();
-    //     handleDisplayResult()
-
-
-    // })
+    //     localStorage.setItem('historyList', JSON.stringify(history))
+    // }, [history])
     
     return (
         <HistoryStyles>
-            <h2>{`${preNum} ${symbol} ${num}`}</h2>
-            <h1>{JSON.stringify(history)}</h1>
+            {history && history.map(item => 
+                    <div key={item.id}>
+                        <h2>{item.process}</h2>
+                        <h1>{item.result}</h1>
+                    </div>
+              )}
         </HistoryStyles>
     );
 }

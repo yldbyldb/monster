@@ -50,12 +50,12 @@ const CalculatorStyles = styled.div`
 
 const Calculator = () => {
 
-    const { num, symbol, preNum, resInProvider } = useContext(CalculatorContext)
+    const { proc, result } = useContext(CalculatorContext)
 
     return (
         <CalculatorStyles>
             <div className="displayArea">
-                { num || preNum } 
+                { proc || result } 
             </div>
             <div className="buttonArea">
                 <div className="scientificButton">
