@@ -7,7 +7,16 @@ const HistoryStyles = styled.div`
     background: white;
     width: 300px;
     height: 500px;
-    padding: 10px
+    padding: 10px;
+    overflow: scroll;
+    & h4 {
+        text-align: right;
+        margin-bottom: 5px;
+    }
+    & h3 {
+        text-align: right;
+        margin-top: 5px;
+    }
 `
 
 const History = () => {
@@ -18,8 +27,8 @@ const History = () => {
         <HistoryStyles>
             {history && history.map(item => 
                     <div key={item.id}>
-                        <h2>{item.process}</h2>
-                        <h1>{item.result}</h1>
+                        <h4>{item.process}</h4>
+                        <h3>{item.result}</h3>
                     </div>
               )}
         </HistoryStyles>
