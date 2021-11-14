@@ -50,7 +50,7 @@ const CalculatorStyles = styled.div`
 
 const Calculator = () => {
 
-    const { num, preNum } = useContext(CalculatorContext)
+    const { num, symbol, preNum, resInProvider } = useContext(CalculatorContext)
 
     return (
         <CalculatorStyles>

@@ -12,7 +12,10 @@ const CalculatorProvider = (props) => {
 
     //to save the previous number state
     const [preNum, setPreNum] = useState('')
-    
+
+    //save the result for history list
+    const [resInProvider, setResInProvider] = useState('')
+
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton) => {
         setNum(num + numInButton)
@@ -41,13 +44,13 @@ const CalculatorProvider = (props) => {
     }, [num, setNum]);
 
     //get the symbol when clicking
-    const handleGetSymbol = (symbolInButton) => {
+    const handleGetSymbol = useCallback((symbolInButton) => {
         if(num) {
             setSymbol(symbolInButton)
             setPreNum(num);//save the previous num that clicked
             setNum('');//clear the display area
         }
-    };
+    }, [num]);
 
     //get the result when clicking the '='
     const handleClickEqualButton = () => {
@@ -55,15 +58,24 @@ const CalculatorProvider = (props) => {
             switch(symbol) {
                 case '/': 
                     setPreNum((preNum*1000)/(num*1000));
+                    setSymbol('')
+                    setResInProvider((preNum*1000)/(num*1000))
+                    console.log(typeof resInProvider);
                     break;
                 case '*': 
                     setPreNum(((preNum*1000)*(num*1000))/1000000);
+                    setSymbol('')
+                    setResInProvider(((preNum*1000)*(num*1000))/1000000)
                     break;
                 case '-': 
                     setPreNum(((preNum*1000)-(num*1000))/1000);
+                    setSymbol('')
+                    setResInProvider(((preNum*1000)-(num*1000))/1000)
                     break;
                 case '+': 
                     setPreNum(((preNum*1000)+(num*1000))/1000);
+                    setSymbol('')
+                    setResInProvider(((preNum*1000)+(num*1000))/1000)
                     break;
                 default: 
                     break;
@@ -77,6 +89,8 @@ const CalculatorProvider = (props) => {
             handleDisplayNum, 
             num, 
             preNum,
+            symbol,
+            resInProvider,
             handleClearNum,
             handlePercentNum,
             handleToggleNegative,
