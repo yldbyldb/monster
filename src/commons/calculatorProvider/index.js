@@ -13,6 +13,19 @@ const CalculatorProvider = (props) => {
     //to save the previous number state
     const [preNum, setPreNum] = useState('')
 
+    //init history state
+    const initHistoryList = {
+        historyList: []
+    };
+    //to save the history state
+    const [history, setHistory] = useState(initHistoryList);
+
+    //to save the process temporarily for history
+    const [proc, setProc] = useState('');
+    //to save the result temporarily for history
+    const [result, setResult] = useState('');
+    
+
     //save the result for history list
     const [resInProvider, setResInProvider] = useState('')
 
@@ -46,7 +59,7 @@ const CalculatorProvider = (props) => {
     //get the symbol when clicking
     const handleGetSymbol = useCallback((symbolInButton) => {
         if(num) {
-            setSymbol(symbolInButton)
+            setSymbol(symbolInButton)//save the operation symbol
             setPreNum(num);//save the previous num that clicked
             setNum('');//clear the display area
         }
@@ -60,7 +73,6 @@ const CalculatorProvider = (props) => {
                     setPreNum((preNum*1000)/(num*1000));
                     setSymbol('')
                     setResInProvider((preNum*1000)/(num*1000))
-                    console.log(typeof resInProvider);
                     break;
                 case '*': 
                     setPreNum(((preNum*1000)*(num*1000))/1000000);
