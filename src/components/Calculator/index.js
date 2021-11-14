@@ -50,13 +50,17 @@ const CalculatorStyles = styled.div`
 
 const Calculator = () => {
 
-    const { proc, result } = useContext(CalculatorContext)
+    const { proc, num, result } = useContext(CalculatorContext)
 
     return (
         <CalculatorStyles>
             <div className="displayArea">
-                { proc || result } 
+                { num || result } 
             </div>
+            {/* if want to show the process */}
+            {/* <div className="displayArea">
+                { proc || result } 
+            </div> */}
             <div className="buttonArea">
                 <div className="scientificButton">
                     <ScientificButton>(</ScientificButton>

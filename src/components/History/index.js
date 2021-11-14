@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../commons/calculatorProvider'
@@ -13,19 +13,6 @@ const HistoryStyles = styled.div`
 const History = () => {
         
     const { history } = useContext(CalculatorContext);
-
-    //get the history list for local storage
-    // const [historyList, setHistoryList] = useState('')
-
-    // useEffect(() => {
-    //     const historyListFromLocalStorage = JSON.parse(localStorage.getItem('historyList') || '[]');
-    //     setHistoryList(historyListFromLocalStorage);
-    // }, [])
-
-    // save the history into localStorage
-    // useEffect(() => {
-    //     localStorage.setItem('historyList', JSON.stringify(history))
-    // }, [history])
     
     return (
         <HistoryStyles>
