@@ -10,6 +10,9 @@ const HistoryStyles = styled.div`
     padding: 10px
 `
 
+
+
+
 const History = () => {
 
     //init history state
@@ -24,7 +27,8 @@ const History = () => {
     // //to save the result temporarily for history
     // const [result, setResult] = useState('');
         
-    const { preNum, symbol, num, resInProvider } = useContext(CalculatorContext);
+    const { preNum, symbol, num, history } = useContext(CalculatorContext);
+
 
     // const handleDisplayProcess = () => {
     //     setProc(preNum + symbol + num);
@@ -64,7 +68,7 @@ const History = () => {
     return (
         <HistoryStyles>
             <h2>{`${preNum} ${symbol} ${num}`}</h2>
-            <h1>{resInProvider}</h1>
+            <h1>{JSON.stringify(history)}</h1>
         </HistoryStyles>
     );
 }

@@ -13,21 +13,17 @@ const CalculatorProvider = (props) => {
     //to save the previous number state
     const [preNum, setPreNum] = useState('')
 
-    //init history state
-    const initHistoryList = {
-        historyList: []
-    };
     //to save the history state
-    const [history, setHistory] = useState(initHistoryList);
+    const [history, setHistory] = useState([]);
 
-    //to save the process temporarily for history
-    const [proc, setProc] = useState('');
-    //to save the result temporarily for history
-    const [result, setResult] = useState('');
+    // //to save the process temporarily for history
+    // const [proc, setProc] = useState('');
+    // //to save the result temporarily for history
+    // const [result, setResult] = useState('');
     
 
-    //save the result for history list
-    const [resInProvider, setResInProvider] = useState('')
+    // //save the result for history list
+    // const [resInProvider, setResInProvider] = useState('')
 
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton) => {
@@ -68,26 +64,31 @@ const CalculatorProvider = (props) => {
     //get the result when clicking the '='
     const handleClickEqualButton = () => {
         if (num && preNum) {
+            let res
             switch(symbol) {
                 case '/': 
-                    setPreNum((preNum*1000)/(num*1000));
+                    res = (preNum*1000)/(num*1000)
+                    setPreNum(res);
                     setSymbol('')
-                    setResInProvider((preNum*1000)/(num*1000))
+                    setHistory([...history, {process: '', result: res}])
                     break;
                 case '*': 
-                    setPreNum(((preNum*1000)*(num*1000))/1000000);
+                    res = ((preNum*1000)*(num*1000))/1000000
+                    setPreNum(res);
                     setSymbol('')
-                    setResInProvider(((preNum*1000)*(num*1000))/1000000)
+                    setHistory([...history, {process: '', result: res}])
                     break;
                 case '-': 
-                    setPreNum(((preNum*1000)-(num*1000))/1000);
+                    res = ((preNum*1000)-(num*1000))/1000
+                    setPreNum(res);
                     setSymbol('')
-                    setResInProvider(((preNum*1000)-(num*1000))/1000)
+                    setHistory([...history, {process: '', result: res}])
                     break;
-                case '+': 
-                    setPreNum(((preNum*1000)+(num*1000))/1000);
+                case '+':
+                    res = ((preNum*1000)+(num*1000))/1000
+                    setPreNum(res);
                     setSymbol('')
-                    setResInProvider(((preNum*1000)+(num*1000))/1000)
+                    setHistory([...history, {process: '', result: res}])
                     break;
                 default: 
                     break;
@@ -102,7 +103,7 @@ const CalculatorProvider = (props) => {
             num, 
             preNum,
             symbol,
-            resInProvider,
+            history,
             handleClearNum,
             handlePercentNum,
             handleToggleNegative,
