@@ -19,7 +19,7 @@ const CalculatorProvider = (props) => {
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton) => {
         //in if condition the 'num' is to make sure the first number in every input number is not '0'
-        if ((num + numInButton).slice(0,1) !== '0') {
+        if ((num + numInButton).slice(0,1) !== '0' &&(num + numInButton).indexOf('.') === (num + numInButton).lastIndexOf('.')) {
             setNum(num + numInButton)
             setProc(proc + numInButton)
         } 
