@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components';
 
 import History from './History';
@@ -13,7 +13,7 @@ const CalculatorAndHistoryStyles = styled.div`
     margin: 0 auto;
 `
 
-const CalculatorAndHistory = () => {
+const CalculatorAndHistory: FC = () => {
     return (
         <CalculatorAndHistoryStyles>
             <History />

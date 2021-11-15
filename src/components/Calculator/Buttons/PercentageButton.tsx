@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../../commons/calculatorProvider';
@@ -17,13 +17,13 @@ const Button = styled.button`
     };
 `;
 
-const CButton = () => {
+const PercentageButton: FC = () => {
 
-    const{ handleClearNum } = useContext(CalculatorContext)
+    const { handlePercentNum } = useContext(CalculatorContext)
 
     return (
-        <Button onClick={() => handleClearNum()}>C</Button>
+        <Button onClick={() => handlePercentNum()}>%</Button>
         );
 }
 
-export default CButton
+export default PercentageButton

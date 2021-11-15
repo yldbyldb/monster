@@ -15,7 +15,11 @@ const Button = styled.button`
     };
 `;
 
-const ScientificButton = (props) => {
+interface ScientificButtonProps {
+    children: React.ReactNode
+}
+
+const ScientificButton = (props: ScientificButtonProps) => {
     return (
         <Button onClick={() => console.log('>_<! Nothing happened...')}>
             {props.children}

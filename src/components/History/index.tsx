@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../commons/calculatorProvider'
+import { IHistory } from '../../commons/calculatorProvider'
 
 const HistoryStyles = styled.div`
     background: white;
@@ -19,14 +20,14 @@ const HistoryStyles = styled.div`
     }
 `
 
-const History = () => {
+const History: FC = () => {
         
     const { history } = useContext(CalculatorContext);
     
     return (
         <HistoryStyles>
-            {history && history.map(item => 
-                    <div key={item.id}>
+            {history && history.map((item: IHistory) => 
+                    <div>
                         <h4>{item.process}</h4>
                         <h3>{item.result}</h3>
                     </div>

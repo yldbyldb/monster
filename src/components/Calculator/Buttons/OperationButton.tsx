@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../../commons/calculatorProvider';
@@ -16,8 +16,10 @@ const Button = styled.button`
         cursor:pointer;
     };
 `;
-
-const OperationButton = ({ symbol }) => {
+interface OperationButtonProps {
+    symbol: string
+}
+const OperationButton: FC<OperationButtonProps> = ({ symbol }) => {
 
     const { handleGetSymbol } = useContext(CalculatorContext)
 

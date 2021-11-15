@@ -50,11 +50,11 @@ const CalculatorStyles = styled.div`
 
 const Calculator = () => {
 
-    const { proc, num, result } = useContext(CalculatorContext)
+    const { num, result } = useContext(CalculatorContext)
 
     return (
         <CalculatorStyles>
-            <div className="displayArea">
+            <div className="displayArea" data-testid="display">
                 { num || result } 
             </div>
             {/* if want to show the process */}
@@ -99,20 +99,20 @@ const Calculator = () => {
                     <NegativeButton />
                     <PercentageButton />
                     <OperationButton symbol='/'/>
-                    <NumberButton num={1}/>
-                    <NumberButton num={2}/>
-                    <NumberButton num={3}/>
+                    <NumberButton num='1'/>
+                    <NumberButton num='2'/>
+                    <NumberButton num='3'/>
                     <OperationButton symbol='*'/>
-                    <NumberButton num={4}/>
-                    <NumberButton num={5}/>
-                    <NumberButton num={6}/>
+                    <NumberButton num='4'/>
+                    <NumberButton num='5'/>
+                    <NumberButton num='6'/>
                     <OperationButton symbol='-'/>
-                    <NumberButton num={7}/>
-                    <NumberButton num={8}/>
-                    <NumberButton num={9}/>
+                    <NumberButton num='7'/>
+                    <NumberButton num='8'/>
+                    <NumberButton num='9'/>
                     <OperationButton symbol='+'/>
                     <div style={{gridColumn: '1/3'}}>
-                        <ZeroButton num={0}/>
+                        <ZeroButton num='0'/>
                     </div>
                     <NumberButton num='.'/>
                     <EqualButton />

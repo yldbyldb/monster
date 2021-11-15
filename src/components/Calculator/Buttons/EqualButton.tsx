@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../../commons/calculatorProvider';
@@ -6,24 +6,24 @@ import { CalculatorContext } from '../../../commons/calculatorProvider';
 const Button = styled.button`
     width: 60px;
     height: 60px;
-    background: rgb(155 155 155);
+    background: rgb(241 142 47);
     border-radius: 30px;
     border: 0px;
     font-size: 25px;
-    color: black;
+    color: white;
     margin: 0 auto;
     &:hover {
         cursor:pointer;
     };
 `;
 
-const NegativeButton = () => {
+const EqualButton: FC = () => {
 
-    const { handleToggleNegative } = useContext(CalculatorContext)
+    const { handleClickEqualButton } = useContext(CalculatorContext)
 
     return (
-        <Button onClick={() => handleToggleNegative()}>+/-</Button>
+        <Button onClick={() => handleClickEqualButton()}>=</Button>
         );
 }
 
-export default NegativeButton
+export default EqualButton

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import styled from 'styled-components';
 
 import { CalculatorContext } from '../../../commons/calculatorProvider'
@@ -17,7 +17,10 @@ const Button = styled.button`
     };
 `;
 
-const NumberButton = ({ num }) => {
+interface NumberButtonProps {
+    num: string
+}
+const NumberButton: FC<NumberButtonProps> = ({ num }) => {
 
     const { handleDisplayNum } = useContext(CalculatorContext)
 
