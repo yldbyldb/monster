@@ -2,16 +2,15 @@ import React, { createContext, useState, useCallback, useEffect, ReactNode } fro
 
 interface ContextValue {
     handleDisplayNum: (numInButton: string) => void;
-    num: any; 
-    proc: any; 
-    result: any;
+    num: StrOrNum; 
+    proc: StrOrNum; 
+    result: StrOrNum;
     history: IHistory[];
-    handleClearNum: any;
-    handlePercentNum: any;
-    handleToggleNegative: any;
-    handleGetSymbol: any;
-    handleClickEqualButton: any;
-
+    handleClearNum: () => void;
+    handlePercentNum: () => void;
+    handleToggleNegative: () => void;
+    handleGetSymbol: (symbolInButton: string) => void;
+    handleClickEqualButton: () => void;
 }
 
 export const CalculatorContext = createContext<ContextValue>({} as any);
@@ -19,7 +18,7 @@ export const CalculatorContext = createContext<ContextValue>({} as any);
 export interface IHistory {
     process: string,
     result: number,
-    id: object,
+    id: number,
 }
 
 interface CalculatorProviderProps {
@@ -59,12 +58,14 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
     
     //toggle to negative/positive
     const handleToggleNegative = useCallback(() => {
-        if (proc && proc > 0) {
-            setProc('-' + proc)
+        if (num && num > 0) {
+            setNum('-' + num)
+            setProc(parseInt('-' + proc))
         } else {
-            setProc((proc as string).slice(1))
+            setNum((num as string).slice(1))
+            // setProc((proc as number)*-1)
         }
-    }, [proc, setProc]);
+    }, [num, setNum, proc, setProc]);
 
     //clear the display area
     const handleClearNum = useCallback(() => {
@@ -83,13 +84,13 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
         if(proc) {
             setProc(proc + symbolInButton)
         }
-    }, [proc]);
+    }, [proc, setProc]);
 
     //get the result and push new object in history array when clicking the '='
     const handleClickEqualButton = () => {
         if (proc) {
             let result = Math.round(eval(proc as string)*100000)/100000;
-            setHistory([...history, {process: proc + '=', result: result, id: new Date()}])
+            setHistory([...history, {process: proc + '=', result: result, id: new Date().getTime()}])
             setProc('')
             setNum('')
             setResult(result)

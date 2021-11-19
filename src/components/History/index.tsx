@@ -27,7 +27,7 @@ const History: FC = () => {
     return (
         <HistoryStyles>
             {history && history.map((item: IHistory) => 
-                    <div>
+                    <div key={item.id}>
                         <h4>{item.process}</h4>
                         <h3>{item.result}</h3>
                     </div>
