@@ -44,7 +44,7 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
     //show the number in display area, when clicking the number button
     const handleDisplayNum = useCallback((numInButton: StrOrNum) => {
         //in if condition the 'num' is to make sure the first number in every input number is not '0'
-        if (((num as string) + (numInButton as string)).slice(0,1) !== '0' &&((num as string) + (numInButton as string)).indexOf('.') === ((num as string) + (numInButton as string)).lastIndexOf('.')) {
+        if (((num as string) + (numInButton as string)).slice(0,1) !== '0' && ((num as string) + (numInButton as string)).indexOf('.') === ((num as string) + (numInButton as string)).lastIndexOf('.')) {
             setNum((num as string) + (numInButton as string))
             setProc((proc as string) + (numInButton as string))
         } 
@@ -70,8 +70,6 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
     //clear the display area
     const handleClearNum = useCallback(() => {
         setProc('');
-
-        //to make sure the num in line 22 is ''
         setNum('')
         setResult('')
     }, [setProc]);
