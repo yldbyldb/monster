@@ -37,8 +37,7 @@ const CalculatorStyles = styled.div`
         grid-template-columns: repeat(6, 1fr);
         @media (max-width: 1200px) {
         display: none;
-    };
-
+        };
     }
     .simpleButton {
         margin: 0 auto;

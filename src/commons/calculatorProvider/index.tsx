@@ -72,7 +72,7 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
         setProc('');
         setNum('')
         setResult('')
-    }, [setProc]);
+    }, [setProc, setNum, setResult]);
 
 
     //get the symbol when clicking
@@ -98,7 +98,7 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
     useEffect(() => {
         const historyListFromLocalStorage = JSON.parse(localStorage.getItem('historyList') || '[]');
         setHistory(historyListFromLocalStorage)
-    }, [setHistory])
+    }, [])
 
     //save the history into localStorage
     useEffect(() => {
