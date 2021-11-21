@@ -3,7 +3,7 @@ import React, { createContext, useState, useCallback, useEffect, ReactNode } fro
 interface ContextValue {
     handleDisplayNum: (numInButton: string) => void;
     num: StrOrNum; 
-    proc: StrOrNum; 
+    process: StrOrNum; 
     result: StrOrNum;
     history: IHistory[];
     handleClearNum: () => void;
@@ -30,7 +30,7 @@ export type StrOrNum = string | number
 const CalculatorProvider = (props: CalculatorProviderProps) => {
     
     //for the process in history state
-    const [proc, setProc] = useState<StrOrNum>('');
+    const [process, setProcess] = useState<StrOrNum>('');
 
     //to display process state
     const [num, setNum] = useState<StrOrNum>('');
@@ -46,50 +46,50 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
         //in if condition the 'num' is to make sure the first number in every input number is not '0'
         if (((num as string) + (numInButton as string)).slice(0,1) !== '0' && ((num as string) + (numInButton as string)).indexOf('.') === ((num as string) + (numInButton as string)).lastIndexOf('.')) {
             setNum((num as string) + (numInButton as string))
-            setProc((proc as string) + (numInButton as string))
+            setProcess((process as string) + (numInButton as string))
         } 
-    }, [proc, setProc, setNum, num]);
+    }, [process, setProcess, setNum, num]);
 
     //percentage the number which is input
     const handlePercentNum = useCallback(() => {
-        setProc(((proc as number)*1000)/100000)//to deal with 0.1 + 0.2 ≠ 0.3 issue
+        setProcess(((process as number)*1000)/100000)//to deal with 0.1 + 0.2 ≠ 0.3 issue
         setNum(((num as number)*1000)/100000) //to deal with 0.1 + 0.2 ≠ 0.3 issue
-    }, [proc, setProc, setNum, num]);
+    }, [process, setProcess, setNum, num]);
     
     //toggle to negative/positive
     const handleToggleNegative = useCallback(() => {
         if (num && num > 0) {
             setNum('-' + num)
-            setProc(parseInt('-' + proc))
+            setProcess(parseInt('-' + process))
         } else {
             setNum((num as string).slice(1))
             // setProc((proc as number)*-1)
         }
-    }, [num, setNum, proc, setProc]);
+    }, [num, setNum, process, setProcess]);
 
     //clear the display area
     const handleClearNum = useCallback(() => {
-        setProc('');
+        setProcess('');
         setNum('')
         setResult('')
-    }, [setProc, setNum, setResult]);
+    }, [setProcess, setNum, setResult]);
 
 
     //get the symbol when clicking
     const handleGetSymbol = useCallback((symbolInButton) => {
         setNum('')
         setResult('')
-        if(proc) {
-            setProc(proc + symbolInButton)
+        if(process) {
+            setProcess(process + symbolInButton)
         }
-    }, [proc, setProc]);
+    }, [process, setProcess]);
 
     //get the result and push new object in history array when clicking the '='
     const handleClickEqualButton = () => {
-        if (proc) {
-            let result = Math.round(eval(proc as string)*100000)/100000;
-            setHistory([...history, {process: proc + '=', result: result, id: new Date().getTime()}])
-            setProc('')
+        if (process) {
+            let result = Math.round(eval(process as string)*100000)/100000;
+            setHistory([...history, {process: process + '=', result, id: new Date().getTime()}])
+            setProcess('')
             setNum('')
             setResult(result)
         }
@@ -110,7 +110,7 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
         <CalculatorContext.Provider value={{
             handleDisplayNum,
             num, 
-            proc, 
+            process, 
             result,
             history,
             handleClearNum,
