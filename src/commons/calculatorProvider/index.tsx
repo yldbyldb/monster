@@ -87,6 +87,7 @@ const CalculatorProvider = (props: CalculatorProviderProps) => {
     //get the result and push new object in history array when clicking the '='
     const handleClickEqualButton = () => {
         if (process) {
+            // eslint-disable-next-line
             let result = Math.round(eval(process as string)*100000)/100000;
             setHistory([...history, {process: process + '=', result, id: new Date().getTime()}])
             setProcess('')
